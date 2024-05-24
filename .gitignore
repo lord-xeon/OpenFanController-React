@@ -232,3 +232,7 @@ cython_debug/
 
 *.pid.lock
 upload/*
+
+
+###Javascript stuff
+node_modules
