@@ -1,0 +1,11 @@
+{
+  "name": "openfan-ui",
+  "version": "1.0.0",
+  "description": "React based UI for open fan controller",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GNU3"
+}
