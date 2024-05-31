@@ -1,0 +1,20 @@
+import React from "react";
+import CircularSlider from '@fseehawer/react-circular-slider';
+
+
+export default function FanItem(props){
+	return (
+		<article className="fan-item">
+			<header>
+				<h4>Fan Index {props.id}</h4>
+				<h5 contentEditable>{props.name}</h5>
+			</header>
+			<CircularSlider
+				label="Target Speed"
+				max={2500}
+
+				onChange={ value => { console.log(value); } }
+			/>
+		</article>
+	);
+}
