@@ -1,0 +1,19 @@
+{
+  "name": "openfan-ui",
+  "version": "1.0.0",
+  "description": "React based UI for open fan controller",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GNU3",
+  "dependencies": {
+    "@fseehawer/react-circular-slider": "^2.6.4",
+    "@vitejs/plugin-react": "^4.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.2.11"
+  }
+}

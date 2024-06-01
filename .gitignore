@@ -232,3 +232,11 @@ cython_debug/
 
 *.pid.lock
 upload/*
+
+# IDE
+open-fan.sublime-project
+open-fan.sublime-workspace
+
+
+# Javascript stuff
+node_modules
