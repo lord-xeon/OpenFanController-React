@@ -151,6 +151,29 @@ class FanSetPWM_Handler(BaseHandler):
         self.handler.set_all_fan_pwm(value)
         return self.send_response(status='ok', message=f'Update queued. Setting ALL fans to PWM:{value}%', data=None)
 
+class FanSetName_Handler(BaseHandler):
+    def get(self, fan_index=None):
+        value = self.get_argument('value', 0)
+        value = int(float(value))
+
+        if value > 100:
+            value = 100
+        elif value < 0:
+            value = 0
+
+        # Fan index is specified
+        if fan_index:
+            fan_index = int(fan_index)
+            logger.info(f"Request:SET - FAN Name:{fan_index} To:{value}% ({value})")
+            self.handler.set_fan_pwm(fan_index, value)
+            return self.send_response(status='ok', message=f'Update queued. Setting fan #{fan_index} to PWM:{value}%', data=None)
+
+        logger.error(f"Request:SET - FAN Name: Missing Index")
+        return self.send_response(status='error', message=f'Fan Index required', data=None)
+
+
+
+
 class FanSetRPM_Handler(BaseHandler):
     def get(self, fan_index=None):
         value = int(self.get_argument('value', 0))
@@ -171,7 +194,8 @@ class Info_Handler(BaseHandler):
         data = {}
         data['hardware'] = self.handler.get_hw_info()
         data['firmware'] = self.handler.get_hw_info()
-        data['software'] = "Version: 0.1\r\nBuild: 2023-09-29" #FIXME: This will be auto-generated
+        data['software'] = "Version: 0.2\r\nBuild: 2023-09-29" #FIXME: This will be auto-generated
+        data['extra'] = "lord.xeon version est. June 2024"
 
         return self.send_response(status='ok', message='System information', data=data)
 
@@ -243,6 +267,7 @@ class FAN_API_Service(Application):
             (r"/api/v0/fan/all/set", FanSetPWM_Handler, {"handler":self.fan_commander, "config":self.config}),
             (r"/api/v0/fan/([0-9])/rpm", FanSetRPM_Handler, {"handler":self.fan_commander, "config":self.config}),
             (r"/api/v0/info", Info_Handler, {"handler":self.fan_commander, "config":self.config}),
+            (r"/api/v1/fan/([0-9])/set", FanSetName_Handler, {"handler":self.fan_commander, "config":self.config}),
             (r"/", FileHandler),
             (r'/(.*)', StaticFileHandler, {'path': WEBPAGE_ROOT}),
         ]
