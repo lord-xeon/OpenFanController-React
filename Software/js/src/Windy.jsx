@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 
+import { useAPI } from "./AJAX";
 import FanItem from "./FanItem";
 
 const FANS = [{
@@ -15,11 +16,14 @@ name:"Fan 2"
 }]
 
 export default function Windy(props){
+	let { data, loading}  = useAPI("http://192.168.10.4:3000/api/v0/fan/status");
+
+	console.log("data-", data);
 	
 	return (
 		<section className="windy">
 			Blow, Blow
-			{FANS.map((v, i) => <FanItem {...v} key={v.id} />)}
+			{FANS.map((v, i) => <FanItem {...v} key={v.id} currentValue={data?.data?.[v.id]} />)}
 		</section>
 	);
 }
